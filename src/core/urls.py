@@ -18,6 +18,9 @@ from django.urls import path
 from django.urls.conf import include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt import views as jwt_views
+
+from app.todo.views import CreateUserView
 
 
 schema_view = get_schema_view(
@@ -31,7 +34,10 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('app.urls'))
+    path('api/', include('app.urls')),
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('signup/', CreateUserView.as_view(), name='user_signup')
 ]
 
 urlpatterns.append(path('docs/', schema_view.with_ui(), name='docs'))
