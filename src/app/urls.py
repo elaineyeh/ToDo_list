@@ -6,5 +6,5 @@ route = routers.DefaultRouter(trailing_slash=True)
 route.register('todo', TodoViewSet)
 
 urlpatterns = [
-    path('', include(route.urls))
+    path('', include(route.urls)),
 ]
